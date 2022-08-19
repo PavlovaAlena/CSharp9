@@ -46,5 +46,5 @@ else
 {
     int count = m;
     int sum = SummaNumber(m, n, count, 0);
-    Console.WriteLine("Сумма ряда натуральных чисел: " + sum);
+    Console.WriteLine("Сумма ряда натуральных чисел = " + sum);
 }
