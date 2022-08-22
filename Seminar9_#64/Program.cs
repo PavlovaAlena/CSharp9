@@ -1,49 +1,51 @@
-﻿// Задача 64. Задайте значения M и N. Напишите программу, которая выведет все натуральные числа в промежутке от M до N
+﻿// Задача 64. Задайте значение N. Напишите программу, которая выведет все натуральные числа в промежутке от N до 1.
 
 //***********************
-bool InputDannyh(string text, out int val1, out int val2)
+bool InputDannyh(string text, out int val1)
 {
     val1 = 0;
-    val2 = 0;
-    Console.Write($"{text} через пробел: ");
-    int[] array = Console.ReadLine().Split(' ', 2, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
-    if (array.Length < 2)
+    Console.Write($"{text} : ");
+    bool KrivoyVvod = false;
+    if (!int.TryParse(Console.ReadLine(), out int itemp))
+    { KrivoyVvod = true; }
+    if (Convert.ToInt32(itemp) < 2)
+    { KrivoyVvod = true; }
+    if (KrivoyVvod)
     {
-        Console.WriteLine("Вводимые данные должны состоять из 2х чисел, разделенных пробелом!!!");
+        Console.WriteLine("Вводимые данные должны быть числовыми и больше 1!!!");
         Console.Write("Хотите повторно ввести данные? (y - да): ");
         string otvet = Console.ReadLine();
         if (otvet == "y" || otvet == "Y")
-        { return InputDannyh(text, out val1, out val2); }
+        { return InputDannyh(text, out val1); }
 
         return false;
     }
-    val1 = array[0];
-    val2 = array[1];
+
+    val1 = Convert.ToInt32(itemp);
     return true;
 }
 
 //************************
-void PrintNumber(int m, int n, int count)
+void PrintNumber(int n)
 {
-    Console.Write(count + " ");
-    count++;
-    if (count <= n)
-    { PrintNumber(m, n, count); }
+    if (n < 1)
+    {return;}
+    Console.Write(n + " ");
+    PrintNumber(n-1); 
 }
 
 //***********************
 Console.Clear();
-Console.Write("Программа задает значения M и N и выводит все натуральные числа в промежутке от M до N.");
+Console.Write("Программа задает значение N и выводит все натуральные числа в промежутке от N до 1.");
 Console.WriteLine("");
 
-int m, n;
+int n;
 
-if (!InputDannyh("Введите значения M и N", out m, out n))
+if (!InputDannyh("Введите значения N", out n))
 { Console.WriteLine("Расчет прерван из-за отказа ввода данных"); }
 else
 {
-    int count = m;
     Console.WriteLine("Ряд натуральных чисел: ");
-    PrintNumber(m, n, count);
+    PrintNumber(n);
     Console.WriteLine("");
 }
